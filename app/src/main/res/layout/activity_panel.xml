@@ -51,7 +51,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/tvPanel"
         android:text="@string/label_panel"
         android:textColor="#ff6600"
         android:textStyle="bold"
