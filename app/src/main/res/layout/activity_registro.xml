@@ -139,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/label_cancelar"
-                    android:id="@+id/tvRegistrarse"
+                    android:id="@+id/tvCancelar"
                     android:layout_alignTop="@+id/btnRegistrar"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"

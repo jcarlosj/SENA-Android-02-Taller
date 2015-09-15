@@ -20,7 +20,7 @@ public class UsuariosDataBaseManager  {
 
     //   Sentencia SQL para la creación de la tabla
     public static final String CREATE_TABLE = "create table if not exists " + T_NOMBRE + " ("
-                                                    + C_ID + " integer primary key autoincrement, "
+                                                    + C_ID + " integer primary key, "
                                                     + C_NOMBRES + " text not null,"
                                                     + C_APELLIDOS + " text not null,"
                                                     + C_CORREO + " text not null,"
@@ -66,8 +66,9 @@ public class UsuariosDataBaseManager  {
         return DROP_TABLE;
     }
 
-    private ContentValues contenedor_valores( String nombres, String apellidos, String correo, String contrasena ) {
+    private ContentValues contenedorValores( int numero_cedula, String nombres, String apellidos, String correo, String contrasena ) {
         cvCamposTabla = new ContentValues();
+        cvCamposTabla .put( C_ID, numero_cedula );
         cvCamposTabla .put( C_NOMBRES, nombres );
         cvCamposTabla .put( C_APELLIDOS, apellidos );
         cvCamposTabla .put( C_CORREO, correo );
@@ -78,11 +79,11 @@ public class UsuariosDataBaseManager  {
 
     //-> Esta forma de insertar datos se realiza usando un método proporcionado por Android para
     //   la inserción de registros en la tabla correspondiente de una BD.
-    public void insertar( String nombres, String apellidos, String correo, String contrasena ) {
+    public long insertar( int numero_cedula, String nombres, String apellidos, String correo, String contrasena ) {
         //-> db .insert( TABLE, NullColumnHack, ContentValues ); donde "NullColumnHack" puede ser "null" o un campo de la tabla que desde su creación
         //   permita valores núlos, por ejemplo "CN_PHONE" sea "null", si no existe un campo con esa característica basta con poner "null"
         //   insert into table; / SQL-> insert into table (telefono) values(null)
-        db .insert( T_NOMBRE, null, contenedor_valores( nombres, apellidos, correo, contrasena ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
+        return db .insert( T_NOMBRE, null, contenedorValores( numero_cedula, nombres, apellidos, correo, contrasena ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
 
     }
 
