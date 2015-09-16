@@ -2,6 +2,7 @@ package co.jce.sena.basededatos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -37,6 +38,7 @@ public class UsuariosDataBaseManager  {
     private DataBaseHelper helper;
     private SQLiteDatabase db;
     private ContentValues cvCamposTabla;
+    private Cursor cRegistro;
 
     //-> Constructor
     public UsuariosDataBaseManager( Context context ) {
@@ -85,6 +87,18 @@ public class UsuariosDataBaseManager  {
         //   insert into table; / SQL-> insert into table (telefono) values(null)
         return db .insert( T_NOMBRE, null, contenedorValores( numero_cedula, nombres, apellidos, correo, contrasena ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
 
+    }
+
+    public boolean consultarId( int numero_cedula ) {
+        cRegistro = db. rawQuery( "select " + C_ID + " from " + T_NOMBRE
+                                            + " where " + C_ID + " = " + numero_cedula , null  );
+
+        //-> Validamos si el registro con "_id" numero_cedula fue encontrado o no.
+        if( cRegistro .moveToFirst() ) {
+            return true;    //: Existe
+        }
+
+        return false;   //: No existe
     }
 
 }

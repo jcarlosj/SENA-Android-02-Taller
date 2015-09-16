@@ -87,26 +87,43 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
 
         if( v .getId() == R .id .btnRegistrar ) {
 
-            long numeroRegistros;
+            registra();
 
-            //-> Validamos que los dos campos de contraseña y su confirmación sean iguales.
-            if( etContrasena .getText() .toString() .equals( etConfirmarContrasena .getText() .toString() ) ) {
+        }
 
-                capturaValores();
-                usuarios = new UsuariosDataBaseManager( this );
-                numeroRegistros = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vContrasena );
+    }
 
-                if( numeroRegistros != -1 ) {
-                    Toast .makeText( RegistroActivity .this, "Registro realizado con éxito", Toast .LENGTH_SHORT ) .show();
-                }
-                else {
-                    Toast .makeText( RegistroActivity .this , "Ocurrio un error en el registro", Toast .LENGTH_SHORT ) .show();
-                }
+    private void registra() {
 
+        long numeroRegistros;
+
+        //-> Valida que los dos campos de contraseña y su confirmación sean iguales.
+        if( etContrasena .getText() .toString() .equals( etConfirmarContrasena .getText() .toString() ) ) {
+
+            capturaValores();
+            usuarios = new UsuariosDataBaseManager( this );
+
+            //-> Valida si el usuario existe
+            if( usuarios .consultarId( vNumeroCedula ) ) {
+                Toast .makeText( this, "El usuario que intenta registrar ya existe.", Toast .LENGTH_SHORT ) .show();
+                return;
+            }
+
+            //-> Realiza el registro del usuario.
+            numeroRegistros = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vContrasena );
+
+            //-> Valida si el registro se realizo con éxito
+            if( numeroRegistros != -1 ) {
+                limpiarCampos();
+                Toast .makeText( RegistroActivity .this, "Registro realizado con éxito", Toast .LENGTH_SHORT ) .show();
             }
             else {
-                Toast .makeText( this, "La contraseña no ha sido confirmada", Toast .LENGTH_SHORT ) .show();
+                Toast .makeText( RegistroActivity .this , "Ocurrio un error", Toast .LENGTH_SHORT ) .show();
             }
+
+        }
+        else {
+            Toast .makeText( this, "Las contraseñas no coinciden", Toast .LENGTH_SHORT ) .show();
         }
 
     }
@@ -121,4 +138,16 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
         vConfirmarContrasena = etConfirmarContrasena .getText() .toString();
 
     }
+
+    private void limpiarCampos() {
+        //-> Limpiamos todos los componentes del "Activity"
+        etNumeroCedula .setText( "" );
+        etNombres .setText( "" );
+        etApellidos .setText( "" );
+        etCorreo .setText( "" );
+        etContrasena .setText( "" );
+        etConfirmarContrasena .setText( "" );
+
+    }
+
 }
