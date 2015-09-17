@@ -95,7 +95,8 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
 
     private void registra() {
 
-        long numeroRegistros;
+        //-> Declara variable para alojar resultado de la inserción.
+        long numeroRegistro;
 
         //-> Valida que los dos campos de contraseña y su confirmación sean iguales.
         if( etContrasena .getText() .toString() .equals( etConfirmarContrasena .getText() .toString() ) ) {
@@ -110,10 +111,10 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
             }
 
             //-> Realiza el registro del usuario.
-            numeroRegistros = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vContrasena );
+            numeroRegistro = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vContrasena, 2 );
 
             //-> Valida si el registro se realizo con éxito
-            if( numeroRegistros != -1 ) {
+            if( numeroRegistro != -1 ) {
                 limpiarCampos();
                 Toast .makeText( RegistroActivity .this, "Registro realizado con éxito", Toast .LENGTH_SHORT ) .show();
             }

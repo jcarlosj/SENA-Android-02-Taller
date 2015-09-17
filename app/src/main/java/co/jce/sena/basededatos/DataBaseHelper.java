@@ -3,17 +3,18 @@ package co.jce.sena.basededatos;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 /**
  * Created by jce on 14/09/15.
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    // Atributos (Constantes)
+    //-> Atributos (Constantes)
     private static final String DB_NAME = "biblioteca.sqlite";  //: Nombre del archivo de la base de datos, puede usar otra extensión soportada por SQLite o no llevarla.
     private static final int DB_SCHEME_VERSION = 1;             //: Número de la versión de la estructura de la base de datos, cada que la estructura cambia, cambia el número de la versión.
 
-    // Constructor
+    //-> Constructor
     public DataBaseHelper( Context context ) {
         super( context, DB_NAME, null, DB_SCHEME_VERSION );
     }
@@ -21,6 +22,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate( SQLiteDatabase db ) {
         //-> Este método se encarga de crear la estructura de la base de datos.
+        db .execSQL( RolesDataBaseManager .crearTabla() );
+        db .execSQL( RolesDataBaseManager .inicializarTabla() );
         db .execSQL( UsuariosDataBaseManager .crearTabla() );
 
     }
