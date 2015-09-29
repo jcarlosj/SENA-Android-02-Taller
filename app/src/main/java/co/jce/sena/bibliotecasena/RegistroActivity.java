@@ -31,10 +31,15 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
                    vApellidos,
                    vCorreo,
                    vContrasena,
+                   vEstado,
                    vConfirmarContrasena;
 
     //Atributos (Especiales)
     private UsuariosDataBaseManager usuarios;
+
+    public RegistroActivity() {
+        this .vEstado = "activo";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +116,7 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
             }
 
             //-> Realiza el registro del usuario.
-            numeroRegistro = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vContrasena, 2 );
+            numeroRegistro = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vEstado, vContrasena, 2 );
 
             //-> Valida si el registro se realizo con éxito
             if( numeroRegistro != -1 ) {

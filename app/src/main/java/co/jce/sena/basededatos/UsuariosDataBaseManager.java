@@ -18,7 +18,8 @@ public class UsuariosDataBaseManager  {
                                 C_APELLIDOS = "apellidos",    //: Apellidos del usuario.
                                 C_CORREO = "correo",          //: Correo del usuario.
                                 C_CONTRASENA = "contrasena",  //: Contraseña del acceso.
-                                C_ROL_ID = "rol_id";           //: Identidicador del rol
+                                C_ESTADO = "estado",          //: Estado del usuario
+                                C_ROL_ID = "rol_id";          //: Identidicador del rol
 
     //   Sentencia SQL para la creación de la tabla
     public static final String CREATE_TABLE = "create table if not exists " + T_NOMBRE + " ("
@@ -27,6 +28,7 @@ public class UsuariosDataBaseManager  {
                                                     + C_APELLIDOS + " text not null,"
                                                     + C_CORREO + " text not null,"
                                                     + C_CONTRASENA + " text not null,"
+                                                    + C_ESTADO + " text not null,"
                                                     + C_ROL_ID + " text not null"
                                                 + " ); ";
 
@@ -56,6 +58,7 @@ public class UsuariosDataBaseManager  {
             C_APELLIDOS,
             C_CORREO,
             C_CONTRASENA,
+            C_ESTADO,
             C_ROL_ID
         };
 
@@ -72,22 +75,23 @@ public class UsuariosDataBaseManager  {
     }
 
     public static String inicializarTabla() {
-        return "insert into " + T_NOMBRE + " (" + C_ID + ", " + C_NOMBRES + ", " + C_APELLIDOS + ", " + C_CORREO + " ," + C_CONTRASENA + " , " + C_ROL_ID + " )"
-                + " values ( 79878292, \"Super\", \"Administrador\", \"admin@biblioteca.sena.edu.co\", \"29287897\", 1 ),"
-                + " ( \"79878293\", \"Usuario\", \"Demo\", \"demo@biblioteca.sena.edu.co\", \"39287897\", 2 );";
+        return "insert into " + T_NOMBRE + " (" + C_ID + ", " + C_NOMBRES + ", " + C_APELLIDOS + ", " + C_CORREO + " ," + C_CONTRASENA + " ," + C_ESTADO + " , " + C_ROL_ID + " )"
+                + " values ( 79878292, \"Super\", \"Administrador\", \"admin@biblioteca.sena.edu.co\", \"29287897\", \"activo\", 1 ),"
+                       + " ( \"79878293\", \"Usuario\", \"Demo\", \"demo@biblioteca.sena.edu.co\", \"39287897\", \"activo\", 2 );";
     }
 
     public static String eliminarTabla() {
         return DROP_TABLE;
     }
 
-    private ContentValues contenedorValores( int numero_cedula, String nombres, String apellidos, String correo, String contrasena, int rol_id ) {
+    private ContentValues contenedorValores( int numero_cedula, String nombres, String apellidos, String correo, String contrasena, String estado, int rol_id ) {
         cvCamposTabla = new ContentValues();
         cvCamposTabla .put( C_ID, numero_cedula );
         cvCamposTabla .put( C_NOMBRES, nombres );
         cvCamposTabla .put( C_APELLIDOS, apellidos );
         cvCamposTabla .put( C_CORREO, correo );
         cvCamposTabla .put( C_CONTRASENA, contrasena );
+        cvCamposTabla .put( C_ESTADO, estado );
         cvCamposTabla .put( C_ROL_ID, rol_id );
 
         return cvCamposTabla;
@@ -95,11 +99,11 @@ public class UsuariosDataBaseManager  {
 
     //-> Esta forma de insertar datos se realiza usando un método proporcionado por Android para
     //   la inserción de registros en la tabla correspondiente de una BD.
-    public long insertar( int numero_cedula, String nombres, String apellidos, String correo, String contrasena, int rol_id ) {
+    public long insertar( int numero_cedula, String nombres, String apellidos, String correo, String contrasena, String estado, int rol_id ) {
         //-> db .insert( TABLE, NullColumnHack, ContentValues ); donde "NullColumnHack" puede ser "null" o un campo de la tabla que desde su creación
         //   permita valores núlos, por ejemplo "CN_PHONE" sea "null", si no existe un campo con esa característica basta con poner "null"
         //   insert into table; / SQL-> insert into table (telefono) values(null)
-        return db .insert( T_NOMBRE, null, contenedorValores( numero_cedula, nombres, apellidos, correo, contrasena, rol_id ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
+        return db .insert( T_NOMBRE, null, contenedorValores( numero_cedula, nombres, apellidos, correo, contrasena, estado, rol_id ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
 
     }
 
