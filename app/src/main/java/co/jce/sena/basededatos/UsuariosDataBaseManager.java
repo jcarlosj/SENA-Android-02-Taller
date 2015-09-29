@@ -71,6 +71,12 @@ public class UsuariosDataBaseManager  {
         return CREATE_TABLE;
     }
 
+    public static String inicializarTabla() {
+        return "insert into " + T_NOMBRE + " (" + C_ID + ", " + C_NOMBRES + ", " + C_APELLIDOS + ", " + C_CORREO + " ," + C_CONTRASENA + " , " + C_ROL_ID + " )"
+                + " values ( 79878292, \"Super\", \"Administrador\", \"admin@biblioteca.sena.edu.co\", \"29287897\", 1 ),"
+                + " ( \"79878293\", \"Usuario\", \"Demo\", \"demo@biblioteca.sena.edu.co\", \"39287897\", 2 );";
+    }
+
     public static String eliminarTabla() {
         return DROP_TABLE;
     }

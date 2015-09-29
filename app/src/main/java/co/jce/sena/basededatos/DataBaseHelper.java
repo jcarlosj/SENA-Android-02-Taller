@@ -25,6 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db .execSQL( RolesDataBaseManager .crearTabla() );
         db .execSQL( RolesDataBaseManager .inicializarTabla() );
         db .execSQL( UsuariosDataBaseManager .crearTabla() );
+        db .execSQL( UsuariosDataBaseManager .inicializarTabla() );
 
     }
 
