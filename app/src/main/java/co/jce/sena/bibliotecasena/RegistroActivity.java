@@ -1,5 +1,6 @@
 package co.jce.sena.bibliotecasena;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -34,7 +35,7 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
                    vEstado,
                    vConfirmarContrasena;
 
-    //Atributos (Especiales)
+    //->Atributos (Especiales)
     private UsuariosDataBaseManager usuarios;
 
     public RegistroActivity() {

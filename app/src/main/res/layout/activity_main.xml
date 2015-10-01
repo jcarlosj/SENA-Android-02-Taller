@@ -34,7 +34,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etNombres"
+        android:id="@+id/etContrasena"
         android:hint="@string/label_contrasena"
         android:layout_below="@+id/etNumeroCedula"
         android:layout_alignParentRight="true"
@@ -48,7 +48,7 @@
         android:layout_marginTop="23dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/etNombres" />
+        android:layout_below="@+id/etContrasena" />
 
     <TextView
         android:layout_width="match_parent"

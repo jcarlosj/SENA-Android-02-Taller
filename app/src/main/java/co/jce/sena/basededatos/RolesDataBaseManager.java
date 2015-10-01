@@ -11,23 +11,23 @@ import android.database.sqlite.SQLiteDatabase;
 public class RolesDataBaseManager {
 
     //-> ATRIBUTOS (Constantes)
-    private static final String T_NOMBRE = "roles";     //: Nombre de la tabla.
+    private static final String T_ROLES = "roles";                  //: Nombre de la tabla ROLES
     //   Nombre de cada uno de los campos de la tabla "roles"
-    public static final String  C_ID = "_id",                       //: Identificador de la tabla.
-                                C_ROL = "nombre_rol",               //: Nombres del usuario.
-                                C_DESCRIPCION = "descripcion_rol",  //: Apellidos del usuario.
-                                C_ESTADO = "estado_rol";            //: Correo del usuario.
+    public static final String  CR_ID = "_id",                      //: Identificador de la tabla.
+                                CR_NOMBRE = "nombre",               //: Nombres del usuario.
+                                CR_DESCRIPCION = "descripcion",     //: Apellidos del usuario.
+                                CR_ESTADO = "estado";               //: Correo del usuario.
 
-    //   Sentencia SQL para la creación de la tabla
-    public static final String CREATE_TABLE = "create table if not exists " + T_NOMBRE + " ("
-                                                    + C_ID + " integer primary key autoincrement, "
-                                                    + C_ROL + " text not null, "
-                                                    + C_DESCRIPCION + " text not null, "
-                                                    + C_ESTADO + " text not null "
+    //   Sentencia SQL para la creación de la tabla ROLES
+    public static final String CREATE_TABLE = "create table if not exists " + T_ROLES + " ("
+                                                    + CR_ID + " integer primary key autoincrement, "
+                                                    + CR_NOMBRE + " text not null, "
+                                                    + CR_DESCRIPCION + " text not null, "
+                                                    + CR_ESTADO + " text not null "
                                                 + " ); ";
 
     //   Sentencia SQL para eliminar la tabla
-    public static final String DROP_TABLE = "drop table if exists " + T_NOMBRE;
+    public static final String DROP_TABLE = "drop table if exists " + T_ROLES;
 
     //-> Atributos (Comunes)
     private String columnas[];
@@ -43,9 +43,9 @@ public class RolesDataBaseManager {
 
         //-> Inicializamos el "Array" columnas con los nombres de las columnas de la tabla
         columnas = new String[] {
-                C_ROL,
-                C_DESCRIPCION,
-                C_ESTADO
+                CR_NOMBRE,
+                CR_DESCRIPCION,
+                CR_ESTADO
         };
 
         //-> Instanciamos la clase "DataBaseHelper"
@@ -61,7 +61,7 @@ public class RolesDataBaseManager {
     }
 
     public static String inicializarTabla() {
-        return "insert into " + T_NOMBRE + " (" + C_ROL + ", " + C_DESCRIPCION + " ," + C_ESTADO + " )"
+        return "insert into " + T_ROLES + " (" + CR_NOMBRE + ", " + CR_DESCRIPCION + " ," + CR_ESTADO + " )"
                                + " values ( \"Admin\", \"Rol para el administrador del sistema\", \"activo\" ),"
                                + " ( \"Demo\", \"Rol demo para el usuario estandar\", \"activo\" );";
     }
@@ -72,9 +72,9 @@ public class RolesDataBaseManager {
 
     private ContentValues contenedorValores( String rol, String descripcion, String estado ) {
         cvCamposTabla = new ContentValues();
-        cvCamposTabla .put( C_ROL, rol );
-        cvCamposTabla .put( C_DESCRIPCION, descripcion );
-        cvCamposTabla .put( C_ESTADO, estado );
+        cvCamposTabla .put( CR_NOMBRE, rol );
+        cvCamposTabla .put( CR_DESCRIPCION, descripcion );
+        cvCamposTabla .put( CR_ESTADO, estado );
 
         return cvCamposTabla;
     }
@@ -86,7 +86,7 @@ public class RolesDataBaseManager {
         //   permita valores núlos, por ejemplo "CN_PHONE" sea "null", si no existe un campo con esa característica basta con poner "null"
         //   insert into table; / SQL-> insert into table (telefono) values(null)
 
-        return db .insert( T_NOMBRE, null, contenedorValores( rol, descripcion, estado ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
+        return db .insert( T_ROLES, null, contenedorValores( rol, descripcion, estado ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
     }
 
 }

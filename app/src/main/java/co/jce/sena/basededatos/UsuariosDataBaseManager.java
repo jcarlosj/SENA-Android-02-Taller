@@ -11,29 +11,37 @@ import android.database.sqlite.SQLiteDatabase;
 public class UsuariosDataBaseManager  {
 
     //-> ATRIBUTOS (Constantes)
-    private static final String T_NOMBRE = "usuarios";        //: Nombre de la tabla.
-    //   Nombre de cada uno de los campos de la tabla "contactos"
-    public static final String  C_ID = "_id",                 //: Identificador de la tabla.
-                                C_NOMBRES = "nombres",        //: Nombres del usuario.
-                                C_APELLIDOS = "apellidos",    //: Apellidos del usuario.
-                                C_CORREO = "correo",          //: Correo del usuario.
-                                C_CONTRASENA = "contrasena",  //: Contraseña del acceso.
-                                C_ESTADO = "estado",          //: Estado del usuario
-                                C_ROL_ID = "rol_id";          //: Identidicador del rol
+    private static final String T_USUARIOS = "usuarios",      //: Nombre de la tabla USUARIOS.
+                                T_ROLES = "roles";            //: Nombre de la tabla ROLES.
 
-    //   Sentencia SQL para la creación de la tabla
-    public static final String CREATE_TABLE = "create table if not exists " + T_NOMBRE + " ("
-                                                    + C_ID + " integer primary key, "
-                                                    + C_NOMBRES + " text not null,"
-                                                    + C_APELLIDOS + " text not null,"
-                                                    + C_CORREO + " text not null,"
-                                                    + C_CONTRASENA + " text not null,"
-                                                    + C_ESTADO + " text not null,"
-                                                    + C_ROL_ID + " text not null"
+    //   Nombre de cada uno de los campos de la tabla USUARIOS
+    public static final String  CU_ID = "_id",                 //: Identificador de la tabla.
+                                CU_NOMBRES = "nombres",        //: Nombres del usuario.
+                                CU_APELLIDOS = "apellidos",    //: Apellidos del usuario.
+                                CU_CORREO = "correo",          //: Correo del usuario.
+                                CU_CONTRASENA = "contrasena",  //: Contraseña del acceso.
+                                CU_ESTADO = "estado",          //: Estado del usuario
+                                CU_ROL_ID = "rol_id",          //: Identidicador del rol
+
+    //   Nombre de cada uno de los campos de la tabla ROLES
+    //   que interactuarán con la tabla USUARIOS
+                                CR_ID = "_id",                 //: Identificador de la tabla.
+                                CR_NOMBRE = "nombre",          //: Nombres del usuario.
+                                CR_ESTADO = "estado";          //: Correo del usuario.
+
+    //   Sentencia SQL para la creación de la tabla USUARIOS
+    public static final String CREATE_TABLE = "create table if not exists " + T_USUARIOS + " ("
+                                                    + CU_ID + " integer primary key, "
+                                                    + CU_NOMBRES + " text not null,"
+                                                    + CU_APELLIDOS + " text not null,"
+                                                    + CU_CORREO + " text not null,"
+                                                    + CU_CONTRASENA + " text not null,"
+                                                    + CU_ESTADO + " text not null,"
+                                                    + CU_ROL_ID + " text not null"
                                                 + " ); ";
 
     //   Sentencia SQL para eliminar la tabla
-    public static final String DROP_TABLE = "drop table if exists " + T_NOMBRE;
+    public static final String DROP_TABLE = "drop table if exists " + T_USUARIOS;
 
     //-> Atributos (Comunes)
     private String columnas[];
@@ -53,13 +61,13 @@ public class UsuariosDataBaseManager  {
 
         //-> Inicializamos el "Array" columnas con los nombres de las columnas de la tabla
         columnas = new String[] {
-            C_ID,
-            C_NOMBRES,
-            C_APELLIDOS,
-            C_CORREO,
-            C_CONTRASENA,
-            C_ESTADO,
-            C_ROL_ID
+            CU_ID,
+            CU_NOMBRES,
+            CU_APELLIDOS,
+            CU_CORREO,
+            CU_CONTRASENA,
+            CU_ESTADO,
+            CU_ROL_ID
         };
 
         //-> Instanciamos la clase "DataBaseHelper"
@@ -75,9 +83,9 @@ public class UsuariosDataBaseManager  {
     }
 
     public static String inicializarTabla() {
-        return "insert into " + T_NOMBRE + " (" + C_ID + ", " + C_NOMBRES + ", " + C_APELLIDOS + ", " + C_CORREO + " ," + C_CONTRASENA + " ," + C_ESTADO + " , " + C_ROL_ID + " )"
+        return "insert into " + T_USUARIOS + " (" + CU_ID + ", " + CU_NOMBRES + ", " + CU_APELLIDOS + ", " + CU_CORREO + " ," + CU_CONTRASENA + " ," + CU_ESTADO + " , " + CU_ROL_ID + " )"
                 + " values ( 79878292, \"Super\", \"Administrador\", \"admin@biblioteca.sena.edu.co\", \"29287897\", \"activo\", 1 ),"
-                       + " ( \"79878293\", \"Usuario\", \"Demo\", \"demo@biblioteca.sena.edu.co\", \"39287897\", \"activo\", 2 );";
+                + " ( \"79878293\", \"Usuario\", \"Demo\", \"demo@biblioteca.sena.edu.co\", \"39287897\", \"activo\", 2 );";
     }
 
     public static String eliminarTabla() {
@@ -86,13 +94,13 @@ public class UsuariosDataBaseManager  {
 
     private ContentValues contenedorValores( int numero_cedula, String nombres, String apellidos, String correo, String contrasena, String estado, int rol_id ) {
         cvCamposTabla = new ContentValues();
-        cvCamposTabla .put( C_ID, numero_cedula );
-        cvCamposTabla .put( C_NOMBRES, nombres );
-        cvCamposTabla .put( C_APELLIDOS, apellidos );
-        cvCamposTabla .put( C_CORREO, correo );
-        cvCamposTabla .put( C_CONTRASENA, contrasena );
-        cvCamposTabla .put( C_ESTADO, estado );
-        cvCamposTabla .put( C_ROL_ID, rol_id );
+        cvCamposTabla .put( CU_ID, numero_cedula );
+        cvCamposTabla .put( CU_NOMBRES, nombres );
+        cvCamposTabla .put( CU_APELLIDOS, apellidos );
+        cvCamposTabla .put( CU_CORREO, correo );
+        cvCamposTabla .put( CU_CONTRASENA, contrasena );
+        cvCamposTabla .put( CU_ESTADO, estado );
+        cvCamposTabla .put( CU_ROL_ID, rol_id );
 
         return cvCamposTabla;
     }
@@ -103,13 +111,13 @@ public class UsuariosDataBaseManager  {
         //-> db .insert( TABLE, NullColumnHack, ContentValues ); donde "NullColumnHack" puede ser "null" o un campo de la tabla que desde su creación
         //   permita valores núlos, por ejemplo "CN_PHONE" sea "null", si no existe un campo con esa característica basta con poner "null"
         //   insert into table; / SQL-> insert into table (telefono) values(null)
-        return db .insert( T_NOMBRE, null, contenedorValores( numero_cedula, nombres, apellidos, correo, contrasena, estado, rol_id ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
+        return db .insert( T_USUARIOS, null, contenedorValores( numero_cedula, nombres, apellidos, correo, contrasena, estado, rol_id ) );     //: Si devuelve -1 es por que ha ocurrido un error y no se ha realizado.
 
     }
 
     public boolean consultarId( int numero_cedula ) {
-        cRegistro = db. rawQuery( "select " + C_ID + " from " + T_NOMBRE
-                                            + " where " + C_ID + " = " + numero_cedula , null  );
+        cRegistro = db. rawQuery( "select " + CU_ID + " from " + T_USUARIOS
+                                            + " where " + CU_ID + " = " + numero_cedula , null  );
 
         //-> Validamos si el registro con "_id" numero_cedula fue encontrado o no.
         if( cRegistro .moveToFirst() ) {
@@ -118,5 +126,31 @@ public class UsuariosDataBaseManager  {
 
         return false;       //: No existe
     }
+
+    //-> Buscar si el usuario esta registrado y la contraseña coincide.
+    public Cursor buscarUsuario( int numero_cedula, String contrasena ) {
+
+        return db. rawQuery(
+            "select " + T_USUARIOS + "." + CU_ID + ", "
+                      + T_USUARIOS + "." + CU_NOMBRES + ", "
+                      + T_USUARIOS + "." + CU_APELLIDOS + ", "
+                      + T_USUARIOS + "." + CU_ESTADO + ", "
+                      + T_ROLES + "." + CR_NOMBRE + ", "
+                      + T_ROLES + "." + CR_ID + ", "
+                      + T_ROLES + "." + CR_ESTADO
+                    + " from " + T_USUARIOS
+                    + " inner join " + T_ROLES
+                        + " on " + T_USUARIOS + "." + CU_ROL_ID + " = " + T_ROLES + "." + CR_ID
+                        + " where " + T_USUARIOS + "." + CU_ID + " = " + numero_cedula
+                            + " and " + T_USUARIOS + "." + CU_CONTRASENA + " like \"" + contrasena + "\""
+                ,    //: Primer parametro de rawQuery: La consulta
+            null                                                                                          //: Segundo parámetro de rawQuery: null
+        );
+
+        // select _id, nombres, apellidos, correo, estado from usuarios
+        //        inner join roles on usuarios.rol_id = roles._id;
+
+    }
+
 
 }
