@@ -35,11 +35,13 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
                    vEstado,
                    vConfirmarContrasena;
 
+    private final int ROL_ID = 2;
+
     //->Atributos (Especiales)
     private UsuariosDataBaseManager usuarios;
 
     public RegistroActivity() {
-        this .vEstado = "activo";
+        vEstado = "activo";
     }
 
     @Override
@@ -117,7 +119,7 @@ public class RegistroActivity extends AppCompatActivity implements View .OnClick
             }
 
             //-> Realiza el registro del usuario.
-            numeroRegistro = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vEstado, vContrasena, 2 );
+            numeroRegistro = usuarios .insertar( vNumeroCedula, vNombres, vApellidos, vCorreo, vContrasena, vEstado, ROL_ID );
 
             //-> Valida si el registro se realizo con éxito
             if( numeroRegistro != -1 ) {

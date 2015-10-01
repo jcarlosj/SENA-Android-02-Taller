@@ -37,7 +37,7 @@ public class UsuariosDataBaseManager  {
                                                     + CU_CORREO + " text not null,"
                                                     + CU_CONTRASENA + " text not null,"
                                                     + CU_ESTADO + " text not null,"
-                                                    + CU_ROL_ID + " text not null"
+                                                    + CU_ROL_ID + " integer not null"
                                                 + " ); ";
 
     //   Sentencia SQL para eliminar la tabla

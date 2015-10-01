@@ -63,7 +63,7 @@ public class RolesDataBaseManager {
     public static String inicializarTabla() {
         return "insert into " + T_ROLES + " (" + CR_NOMBRE + ", " + CR_DESCRIPCION + " ," + CR_ESTADO + " )"
                                + " values ( \"Admin\", \"Rol para el administrador del sistema\", \"activo\" ),"
-                               + " ( \"Demo\", \"Rol demo para el usuario estandar\", \"activo\" );";
+                               + " ( \"Usuario\", \"Rol demo para el usuario estandar\", \"activo\" );";
     }
 
     public static String eliminarTabla() {
