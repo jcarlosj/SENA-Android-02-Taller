@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //-> Atributos (Comunes)
     private int vNumeroCedula;
     private String vContrasena;
+    private boolean estaGuardo;
 
     //-> Atributos (Componentes)
     private EditText etNumeroCedula,
@@ -30,22 +31,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //-> Atributos (Especiales)
     private Intent in;
     private UsuariosDataBaseManager usuarios;
-    private SharedPreferences spSesion;
-    private SharedPreferences .Editor spEditorSession;
     private Cursor cBusqueda;
+    private SharedPreferences spSesion;
+    private SharedPreferences.Editor spEditorSession;
 
     //-> Atributos (Constantes)
     private final static String SP_ID = "id_usuario",
                                 SP_NOMBRE = "nombre_usuario",
+                                SP_ESTADO_USUARIO = "estado_usuario",
                                 SP_ROL = "rol_usuario",
-                                GUARDADO = "guardado";
+                                SP_ESTADO_ROL = "estado_rol",
+                                SP_GUARDADO = "guardado";
+
+    public void MainActivity() {
+        this .estaGuardo = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();     //: Inicializamos todos los componentes del "Activity" para hacerlos accesibles
-
+        validarSiGuardoPreferencias();
     }
 
     @Override
@@ -114,11 +121,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //# en una especie de variable de sesión (SharedPreferences) que permita su disponibilidad de estos
             //# datos a lo largo de la aplicación.
 
-            //in = new Intent( this, PanelActivity.class );
-            //startActivity( in );
+            //-> Verifica si el estado del Usuario en el Sistema
+            if( cBusqueda .getString( 3 ) .equals( "activo" ) ) {
 
-            Toast .makeText( this, "Lo encontre", Toast.LENGTH_SHORT ) .show();
-            //Toast .makeText( this, String .valueOf( cBusqueda .getInt( 0 ) ), Toast.LENGTH_SHORT ) .show();
+                //-> Verifica si el estado del Rol actual del  Usuario en el Sistema
+                if( cBusqueda .getString( 6 ) .equals( "activo" ) ) {
+
+                    //-> Asignamos el nombre al archivo XML que alojará las preferencias y el nivel de seguridad del mismo
+                    spSesion = getSharedPreferences("Sesion", MODE_PRIVATE);
+                    spEditorSession = spSesion .edit();     //: Se cambia la preferencia para que sea editable y se le asigna el editor.
+
+                    //-> Guarda los datos para usarlos de forma global.
+                    guardarPreferencias(
+                            cBusqueda.getInt(0),         //: CU_ID
+                            cBusqueda.getString(1),      //: CU_NOMBRE
+                            cBusqueda.getString(3),      //: CU_ESTADO
+                            cBusqueda.getString(4),      //: CR_NOMBRE
+                            cBusqueda.getString(6)       //: CR_ESTADO
+                    );
+
+                    //-> Limpiamos los campos.
+                    limpiarCampos();
+
+                    //-> Accedemos al "PanelActivity"
+                    in = new Intent( this, PanelActivity.class );
+                    startActivity( in );
+                }
+
+            }
+            else {
+                Toast .makeText( this, "Su cuenta se encuentra desactivada", Toast .LENGTH_SHORT ) .show();
+            }
+
         }
         else {
             Toast .makeText( this, "No encuentro nada", Toast.LENGTH_SHORT ) .show();
@@ -134,12 +168,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void guardarPreferencias( String numero_cedula, String nombre, String rol ) {
-        spEditorSession .putString( SP_ID, numero_cedula );
+    private void guardarPreferencias( int numeroCedula, String nombre, String estadoUsuario, String rol, String estadoRol ) {
+        spEditorSession .putInt( SP_ID, numeroCedula );
         spEditorSession .putString( SP_NOMBRE, nombre );
+        spEditorSession .putString( SP_ESTADO_USUARIO, estadoUsuario );
         spEditorSession .putString( SP_ROL, rol );
-        //spEditorSession .putBoolean( GUARDADO, estaGuardo );
+        spEditorSession .putString( SP_ESTADO_ROL, estadoRol );
+        spEditorSession .putBoolean( SP_GUARDADO, estaGuardo );
         spEditorSession .commit();
+    }
+
+    private void validarSiGuardoPreferencias() {
+
+        //-> Asignamos el valor del estado de GUARDADO de preferencias compartidas.
+        if( spSesion != null ) {
+            if( !spSesion .getBoolean( SP_GUARDADO, false ) ) {
+                // limpiarCampos();
+                Toast .makeText( MainActivity .this, "Existe spSesion, pero esta vacio", Toast .LENGTH_SHORT ) .show();
+            }
+            else {
+                Toast .makeText( MainActivity .this, "Existe spSesion y guarda datos", Toast .LENGTH_SHORT ) .show();
+            }
+        }
+        else {
+            Toast .makeText( MainActivity .this, "No existe spSesion", Toast .LENGTH_SHORT) .show();
+        }
+
+    }
+
+    private void limpiarCampos() {
+        etNumeroCedula .setText( "" );
+        etContrasena .setText( "" );
     }
 
 }

@@ -130,21 +130,20 @@ public class UsuariosDataBaseManager  {
     //-> Buscar si el usuario esta registrado y la contraseña coincide.
     public Cursor buscarUsuario( int numero_cedula, String contrasena ) {
 
-        return db. rawQuery(
-            "select " + T_USUARIOS + "." + CU_ID + ", "
-                      + T_USUARIOS + "." + CU_NOMBRES + ", "
-                      + T_USUARIOS + "." + CU_APELLIDOS + ", "
-                      + T_USUARIOS + "." + CU_ESTADO + ", "
-                      + T_ROLES + "." + CR_NOMBRE + ", "
-                      + T_ROLES + "." + CR_ID + ", "
-                      + T_ROLES + "." + CR_ESTADO
+        return db. rawQuery(                                    //-> Indices de recuperación
+            "select " + T_USUARIOS + "." + CU_ID + ", "             //: 0 Para GUARDAR como Shared Preferences en spSesion
+                      + T_USUARIOS + "." + CU_NOMBRES + ", "        //: 1 Para GUARDAR como Shared Preferences en spSesion
+                      + T_USUARIOS + "." + CU_APELLIDOS + ", "      //: 2
+                      + T_USUARIOS + "." + CU_ESTADO + ", "         //: 3 Para GUARDAR como Shared Preferences en spSesion
+                      + T_ROLES + "." + CR_NOMBRE + ", "            //: 4 Para GUARDAR como Shared Preferences en spSesion
+                      + T_ROLES + "." + CR_ID + ", "                //: 5
+                      + T_ROLES + "." + CR_ESTADO                   //: 6 Para GUARDAR como Shared Preferences en spSesion
                     + " from " + T_USUARIOS
                     + " inner join " + T_ROLES
                         + " on " + T_USUARIOS + "." + CU_ROL_ID + " = " + T_ROLES + "." + CR_ID
                         + " where " + T_USUARIOS + "." + CU_ID + " = " + numero_cedula
-                            + " and " + T_USUARIOS + "." + CU_CONTRASENA + " like \"" + contrasena + "\""
-                ,    //: Primer parametro de rawQuery: La consulta
-            null                                                                                          //: Segundo parámetro de rawQuery: null
+                            + " and " + T_USUARIOS + "." + CU_CONTRASENA + " like \"" + contrasena + "\"",    //: Primer parametro de rawQuery: La consulta
+            null                                                                                              //: Segundo parámetro de rawQuery: null
         );
 
         // select _id, nombres, apellidos, correo, estado from usuarios
