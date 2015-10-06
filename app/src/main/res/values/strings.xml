@@ -1,5 +1,10 @@
 <resources>
     <string name="action_settings">Settings</string>
+    <string name="action_biblioteca">Libros</string>
+    <string name="action_cerrar">Cerrar</string>
+    <string name="action_perfil">Perfil</string>
+    <string name="action_prestamos">Préstamos</string>
+    <string name="action_usuarios">Usuarios</string>
     <string name="app_name">Biblioteca SENA</string>
     <string name="button_ingresar">Ingresar</string>
     <string name="button_registrar">Registrar</string>

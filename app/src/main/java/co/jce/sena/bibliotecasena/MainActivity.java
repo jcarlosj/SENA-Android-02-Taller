@@ -137,7 +137,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             cBusqueda.getString(1),      //: CU_NOMBRE
                             cBusqueda.getString(3),      //: CU_ESTADO
                             cBusqueda.getString(4),      //: CR_NOMBRE
-                            cBusqueda.getString(6)       //: CR_ESTADO
+                            cBusqueda.getString(6),      //: CR_ESTADO
+                            true                         //: Cambio de la variable estaGuardo de false a true
                     );
 
                     //-> Limpiamos los campos.
@@ -168,13 +169,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void guardarPreferencias( int numeroCedula, String nombre, String estadoUsuario, String rol, String estadoRol ) {
-        spEditorSession .putInt( SP_ID, numeroCedula );
-        spEditorSession .putString( SP_NOMBRE, nombre );
+    private void guardarPreferencias( int numeroCedula, String nombre, String estadoUsuario, String rol, String estadoRol, boolean guardo ) {
+        spEditorSession .putInt(SP_ID, numeroCedula);
+        spEditorSession .putString(SP_NOMBRE, nombre);
         spEditorSession .putString( SP_ESTADO_USUARIO, estadoUsuario );
         spEditorSession .putString( SP_ROL, rol );
         spEditorSession .putString( SP_ESTADO_ROL, estadoRol );
-        spEditorSession .putBoolean( SP_GUARDADO, estaGuardo );
+        //-> Cambiamos el estado
+        this .estaGuardo = guardo;
+        spEditorSession .putBoolean( SP_GUARDADO, this .estaGuardo );
         spEditorSession .commit();
     }
 
