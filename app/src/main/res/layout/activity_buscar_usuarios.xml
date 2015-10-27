@@ -62,7 +62,7 @@
             android:layout_height="match_parent"
             android:id="@+id/etBuscar"
             android:layout_weight="1"
-            android:hint="@string/label_buscar_libro" />
+            android:hint="@string/label_buscar_usuario" />
 
         <ImageButton
             android:layout_width="wrap_content"

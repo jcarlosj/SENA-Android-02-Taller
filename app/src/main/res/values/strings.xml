@@ -12,6 +12,8 @@
     <string name="label_biblioteca">Biblioteca</string>
     <string name="label_biblioteca_slogan">Conocimiento en la palma de tu mano</string>
     <string name="label_bienvenido">Bienvenido</string>
+    <string name="label_buscar_libro">Buscar libro</string>
+    <string name="label_buscar_usuario">Buscar usuario</string>
     <string name="label_cancelar">Cancelar</string>
     <string name="label_confirmar_contrasena">Confirmar contraseña</string>
     <string name="label_correo">Correo electrónico</string>

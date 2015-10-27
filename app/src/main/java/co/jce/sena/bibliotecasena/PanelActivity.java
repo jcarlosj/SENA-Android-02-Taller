@@ -1,5 +1,6 @@
 package co.jce.sena.bibliotecasena;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class PanelActivity extends AppCompatActivity {
     private boolean estaGuardo;
 
     //-> Atributos (Especiales)
+    private Intent in;
     private SharedPreferences spSesion;
 
     //-> Atributos (Constantes)
@@ -64,6 +66,12 @@ public class PanelActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if( id == R .id .action_admin_usuarios ) {
+            in = new Intent( this, BuscarUsuariosActivity .class );
+            Toast .makeText( this, "Vamos a Usuarios", Toast .LENGTH_SHORT ) .show();
+            startActivity( in );
+
         }
 
         return super.onOptionsItemSelected(item);
