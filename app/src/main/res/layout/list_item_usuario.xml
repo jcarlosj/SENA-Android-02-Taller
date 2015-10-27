@@ -7,17 +7,17 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/ivAnimal"
+        android:id="@+id/ivUsuario"
         android:src="@drawable/ic_admin"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombres y Apellidos Completos"
-        android:id="@+id/textView"
+        android:id="@+id/tvNombresApellidos"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivAnimal"
-        android:layout_toEndOf="@+id/ivAnimal"
+        android:layout_toRightOf="@+id/ivUsuario"
+        android:layout_toEndOf="@+id/ivUsuario"
         android:layout_marginTop="16dp"
         android:textStyle="bold" />
 
@@ -25,30 +25,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cédula"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/ivAnimal"
-        android:layout_toEndOf="@+id/ivAnimal" />
+        android:id="@+id/tvNumeroDocumento"
+        android:layout_below="@+id/tvNombresApellidos"
+        android:layout_toRightOf="@+id/ivUsuario"
+        android:layout_toEndOf="@+id/ivUsuario" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:text="correo@electronico.co"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:id="@+id/tvCorreoElectronico"
+        android:layout_below="@+id/tvNombresApellidos"
+        android:layout_toRightOf="@+id/tvNumeroDocumento"
+        android:layout_toEndOf="@+id/tvNumeroDocumento" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Estado"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/textView2"
-        android:layout_toRightOf="@+id/ivAnimal"
-        android:layout_toEndOf="@+id/ivAnimal" />
+        android:id="@+id/tvEstado"
+        android:layout_below="@+id/tvNumeroDocumento"
+        android:layout_toRightOf="@+id/ivUsuario"
+        android:layout_toEndOf="@+id/ivUsuario" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,9 +56,9 @@
         android:layout_marginLeft="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Préstamos"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:id="@+id/tvPrestamos"
+        android:layout_below="@+id/tvNumeroDocumento"
+        android:layout_toRightOf="@+id/tvNumeroDocumento"
+        android:layout_toEndOf="@+id/tvNumeroDocumento" />
 
 </RelativeLayout>
