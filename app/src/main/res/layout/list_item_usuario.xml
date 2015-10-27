@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/ivAnimal"
+        android:src="@drawable/ic_admin"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombres y Apellidos Completos"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ivAnimal"
+        android:layout_toEndOf="@+id/ivAnimal"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cédula"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/ivAnimal"
+        android:layout_toEndOf="@+id/ivAnimal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="correo@electronico.co"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Estado"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/ivAnimal"
+        android:layout_toEndOf="@+id/ivAnimal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Préstamos"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+</RelativeLayout>
