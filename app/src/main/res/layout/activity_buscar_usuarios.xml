@@ -75,7 +75,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="290dp"
-        android:id="@+id/lvContactos"
+        android:id="@+id/lvUsuarios"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"

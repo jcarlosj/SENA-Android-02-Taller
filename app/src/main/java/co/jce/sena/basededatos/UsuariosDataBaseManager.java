@@ -151,5 +151,11 @@ public class UsuariosDataBaseManager  {
 
     }
 
+    //-> Cargamos la lista de usuarios en un cursor para deeplegarlos en un "ListView"
+    public Cursor listarUsuarios() {
+
+        //-> db. query( String table, String [] columns, String selection, String [] selectionArgs, String groupBy, String having, String orderBy );
+        return db .query( T_USUARIOS, columnas, null, null, null, null, null );
+    }
 
 }

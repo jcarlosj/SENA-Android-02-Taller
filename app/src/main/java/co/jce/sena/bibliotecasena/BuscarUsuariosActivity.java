@@ -1,20 +1,35 @@
 package co.jce.sena.bibliotecasena;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+
+import co.jce.sena.basededatos.UsuariosDataBaseManager;
 
 /**
  * Created by jce on 27/10/15.
  */
 public class BuscarUsuariosActivity extends AppCompatActivity {
 
+    //-> Atributos (Componentes)
+    private ListView lvUsuarios;
+    private EditText etBuscar;
+    private ImageButton ibBuscar;
+
+    //-> Atributos (Especiales)
+    private UsuariosDataBaseManager dbmUsuarios;
+    private Cursor cUsuarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_buscar_usuarios );
-
+        init();
     }
 
     @Override
@@ -40,5 +55,19 @@ public class BuscarUsuariosActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void init() {
+
+        //-> Accedemos a los componentes del "Activity"
+        lvUsuarios = ( ListView ) findViewById( R .id .lvUsuarios );
+        etBuscar = ( EditText ) findViewById( R .id .etBuscar );
+        ibBuscar = ( ImageButton ) findViewById( R .id .ibBuscar );
+
+        //-> Accedemos a la clase que construye la BD.
+        //   (Instanciamos)
+        dbmUsuarios = new UsuariosDataBaseManager( this );
+
+        //-> Cargamos la lista de contactos en el cursor
+        cUsuarios = dbmUsuarios .listarUsuarios();
+    }
 
 }
