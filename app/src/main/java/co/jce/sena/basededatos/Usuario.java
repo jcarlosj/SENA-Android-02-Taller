@@ -6,16 +6,17 @@ package co.jce.sena.basededatos;
 public class Usuario {
 
     //-> Atributos (Comunes)
-    private int idRecursoImagen, id;
+    private int idRecursoImagen,
+                id,
+                rolID;
     private String nombres,
                    apellidos,
                    correo,
                    estado,
-                   contrasenia,
-                   rolID;
+                   contrasenia;
 
     //-> Constructor
-    public Usuario( int idRecursoImagen, int id, String nombres, String apellidos, String correo, String estado, String contrasenia, String rolID ) {
+    public Usuario( int idRecursoImagen, int id, String nombres, String apellidos, String correo, String estado, String contrasenia, int rolID ) {
         this .idRecursoImagen = idRecursoImagen;
         this .id = id;
         this .nombres = nombres;
@@ -83,11 +84,11 @@ public class Usuario {
         this .contrasenia = contrasenia;
     }
 
-    public String getRolID() {
+    public int getRolID() {
         return rolID;
     }
 
-    public void setRolID( String rolID ) {
+    public void setRolID( int rolID ) {
         this .rolID = rolID;
     }
 

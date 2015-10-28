@@ -60,10 +60,10 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario> {
         tvPrestamos = ( TextView ) convertView .findViewById( R .id .tvPrestamos );
 
         //-> Pasamos los valores a los componentes de "list_item_animals.xml"
-        ivUsuario .setImageResource( usuarioPosicion.getIdRecursoImagen() );
-        tvNombresApellidos .setText(usuarioPosicion.getNombres() + " " + usuarioPosicion.getApellidos());
+        ivUsuario .setImageResource( usuarioPosicion .getIdRecursoImagen() );
+        tvNombresApellidos .setText( usuarioPosicion .getNombres() + " " + usuarioPosicion .getApellidos() );
         tvNumeroDocumento .setText(String.valueOf(usuarioPosicion.getId()));
-        tvCorreoElectronico .setText(usuarioPosicion.getCorreo());
+        tvCorreoElectronico .setText( usuarioPosicion.getCorreo() );
         tvEstado .setText( usuarioPosicion .getEstado() );
         tvPrestamos .setText( "Pendiente" );
 

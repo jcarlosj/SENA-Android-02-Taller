@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import co.jce.sena.adaptadores.UsuariosAdapter;
+import co.jce.sena.basededatos.Usuario;
 import co.jce.sena.basededatos.UsuariosDataBaseManager;
 
 /**
@@ -21,9 +25,13 @@ public class BuscarUsuariosActivity extends AppCompatActivity {
     private EditText etBuscar;
     private ImageButton ibBuscar;
 
+    //-> Atributos (Colecciones)
+    private ArrayList< Usuario > alUsuarios;
+
     //-> Atributos (Especiales)
     private UsuariosDataBaseManager dbmUsuarios;
     private Cursor cUsuarios;
+    private UsuariosAdapter adaptadorUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +74,32 @@ public class BuscarUsuariosActivity extends AppCompatActivity {
         //   (Instanciamos)
         dbmUsuarios = new UsuariosDataBaseManager( this );
 
+        //-> Agregamos Usuarios (TEMPORAL SOLO PARA PRUEBA)
+        //   Reemplaza temporalmente al CURSOR con datos extraidos de la BD
+        agregarUsuarios();
+
         //-> Cargamos la lista de contactos en el cursor
-        cUsuarios = dbmUsuarios .listarUsuarios();
+        cUsuarios = dbmUsuarios .listarUsuarios();              //: CURSOR con datos extraidos de la BD
+
+        //-> Instanciamos el Adaptador.
+        //   Asociamos el "Adapter" al "ArrayList".
+        adaptadorUsuarios = new UsuariosAdapter( this, alUsuarios );
+
+        //-> Asociamos el "Adapter" con el "ListView".
+        lvUsuarios .setAdapter( adaptadorUsuarios );
+
+    }
+
+    //-> Agrega Usuarios (TEMPORAL SOLO PARA PRUEBA)
+    private void agregarUsuarios() {
+
+        alUsuarios = new ArrayList< Usuario >();
+
+        for( int i = 0; i < 10; i++ ) {
+            alUsuarios .add( new Usuario( R .drawable .ic_user, (79878290 + i), "Nombres " + i, "Apellidos " + i, "correo" + i + "@electronico.co", "activo", "clave", 1 ) );
+        }
+
+
     }
 
 }
