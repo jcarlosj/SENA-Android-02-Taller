@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import co.jce.sena.basededatos.Usuario;
 import co.jce.sena.bibliotecasena.R;
+import co.jce.sena.holders.UsuarioHolder;
 
 /**
  * Created by jce on 27/10/15.
@@ -23,6 +24,7 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario> {
 
     //-> Atributos (Especiales)
     private Context cContexto;
+    private UsuarioHolder usuarioHolder;
 
     //-> Atributos (Personalizados)
     private Usuario usuarioPosicion;
@@ -48,24 +50,38 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario> {
         //-> Accedemos al objeto "Animal" contenido en el indice indicado del ArrayList
         usuarioPosicion = ( Usuario ) this .alUsuarios .get( position );
 
-        //-> Inflamos la vista del "layout" creado para el despliegue de cada "item" del "ListView"
-        convertView = LayoutInflater .from( this .cContexto ) .inflate( R.layout .list_item_usuario, null );
+        //-> Valida si el "View" del "item" del "ListView" NO existe.
+        //   En caso de NO existir infla la "View" para el "layout" del "item" nuevo para el "ListView"
+        if( convertView == null ) {
 
-        //-> Accedemos a los componentes de "list_item_animals.xml"
-        ivUsuario = ( ImageView ) convertView .findViewById( R .id .ivUsuario );
-        tvNombresApellidos = ( TextView ) convertView .findViewById( R .id .tvNombresApellidos );
-        tvNumeroDocumento = ( TextView ) convertView .findViewById( R .id .tvNumeroDocumento );
-        tvCorreoElectronico = ( TextView ) convertView .findViewById( R .id .tvCorreoElectronico );
-        tvEstado = ( TextView ) convertView .findViewById( R .id .tvEstado );
-        tvPrestamos = ( TextView ) convertView .findViewById( R .id .tvPrestamos );
+            //-> Inflamos la vista del "layout" creado para el despliegue de cada "item" del "ListView"
+            convertView = LayoutInflater .from( this .cContexto ) .inflate( R.layout .list_item_usuario, null );
 
-        //-> Pasamos los valores a los componentes de "list_item_animals.xml"
-        ivUsuario .setImageResource( usuarioPosicion .getIdRecursoImagen() );
-        tvNombresApellidos .setText( usuarioPosicion .getNombres() + " " + usuarioPosicion .getApellidos() );
-        tvNumeroDocumento .setText(String.valueOf(usuarioPosicion.getId()));
-        tvCorreoElectronico .setText( usuarioPosicion.getCorreo() );
-        tvEstado .setText( usuarioPosicion .getEstado() );
-        tvPrestamos .setText( "Pendiente" );
+            //-> Instanciamos el "holder" para mantener los datos.
+            this .usuarioHolder = new UsuarioHolder();
+
+            //-> Accedemos a los componentes de "list_item_animals.xml"
+            this .usuarioHolder .setIvUsuario( ( ImageView ) convertView .findViewById( R .id .ivUsuario ) );
+            this .usuarioHolder .setTvNombresApellidos( ( TextView ) convertView .findViewById( R .id .tvNombresApellidos ) );
+            this .usuarioHolder .setTvNumeroDocumento( ( TextView ) convertView .findViewById( R .id .tvNumeroDocumento) );
+            this .usuarioHolder .setTvCorreoElectronico( ( TextView ) convertView .findViewById( R.id.tvCorreoElectronico ) );
+            this .usuarioHolder .setTvEstado( ( TextView ) convertView .findViewById( R .id .tvEstado ) );
+            this .usuarioHolder .setTvPrestamos( ( TextView ) convertView .findViewById( R .id .tvPrestamos ) );
+
+            convertView .setTag( this .usuarioHolder );    //: Guardamos el "Holder" dentro del "View" para luego poder recuperarlo
+
+        }
+
+        //-> Reasignamos la referencia de los componentes contenidos en el "View" al "Holder"
+        usuarioHolder = ( UsuarioHolder ) convertView .getTag();
+
+        //-> Pasamos los valores a los componentes de "list_item_animals.xml" en el Holder
+        this .usuarioHolder .getIvUsuario() .setImageResource( usuarioPosicion .getIdRecursoImagen() );
+        this .usuarioHolder .getTvNombresApellidos() .setText( usuarioPosicion .getNombres() + " " + usuarioPosicion .getApellidos() );
+        this .usuarioHolder .getTvNumeroDocumento() .setText( String.valueOf(usuarioPosicion .getId() ) );
+        this .usuarioHolder .getTvCorreoElectronico() .setText( usuarioPosicion .getCorreo() );
+        this .usuarioHolder .getTvEstado() .setText( usuarioPosicion .getEstado() );
+        this .usuarioHolder .getTvPrestamos() .setText( "Pendiente" );
 
         return convertView;
     }
