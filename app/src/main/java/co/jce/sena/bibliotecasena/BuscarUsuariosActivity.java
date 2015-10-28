@@ -26,7 +26,8 @@ public class BuscarUsuariosActivity extends AppCompatActivity {
     private ImageButton ibBuscar;
 
     //-> Atributos (Colecciones)
-    private ArrayList< Usuario > alUsuarios;
+    private ArrayList< Usuario > alUsuarios,
+                                 usuarios;
 
     //-> Atributos (Especiales)
     private UsuariosDataBaseManager dbmUsuarios;
@@ -76,10 +77,13 @@ public class BuscarUsuariosActivity extends AppCompatActivity {
 
         //-> Agregamos Usuarios (TEMPORAL SOLO PARA PRUEBA)
         //   Reemplaza temporalmente al CURSOR con datos extraidos de la BD
-        agregarUsuarios();
+        //agregarUsuarios();
 
         //-> Cargamos la lista de contactos en el cursor
         cUsuarios = dbmUsuarios .listarUsuarios();              //: CURSOR con datos extraidos de la BD
+
+        //-> Convertimos los datos del "Cursor" a una colección de tipo "ArrayList"
+        alUsuarios = deCursorAArrayList( cUsuarios );
 
         //-> Instanciamos el Adaptador.
         //   Asociamos el "Adapter" al "ArrayList".
@@ -99,7 +103,38 @@ public class BuscarUsuariosActivity extends AppCompatActivity {
             alUsuarios .add( new Usuario( R .drawable .ic_user, (79878290 + i), "Nombres " + i, "Apellidos " + i, "correo" + i + "@electronico.co", "activo", "clave", 1 ) );
         }
 
+    }
 
+    //-> Convierte un "Cursor" a un "ArrayList"
+    private ArrayList deCursorAArrayList( Cursor cursor ) {
+
+        usuarios = new ArrayList<Usuario>();
+
+        //-> Valida si el cursor puede moverse a la su primera posición (en el inicio del mismo)
+        //   Si puede hacer eso, significa que al menos tiene un dato.
+        if ( cursor .moveToFirst() ) {
+
+            do {
+                //-> Agrega cada campo del cursor (representado en cada uno de los campos de la
+                //   tabla en la BD), a cada uno de los campos del Objeto que representa dicha BD y
+                //   cada objeto se inserta como miembro de una colección del tipo del objeto
+                //   que se esta manipulando
+                usuarios .add(
+                    new Usuario(
+                        R .drawable .ic_user,       //: IdRecursoImagen
+                        cursor .getInt( 0 ),        //: (_id)           Identificador de la tabla.
+                        cursor .getString( 1 ),     //: (nombres)       Nombres del usuario.
+                        cursor .getString( 2 ),     //: (apellidos)     Apellidos del usuario.
+                        cursor .getString( 3 ),     //: (correo)        Correo del usuario.
+                        cursor .getString( 5 ),     //: (estado)        Estado del usuario.
+                        "",                         //: (contrasenia)   Contraseña del acceso.
+                        cursor .getInt( 6 )         //: (rol_id)        Identidicador del rol
+                    )
+                );
+            } while ( cursor .moveToNext() );
+        }
+
+        return usuarios;
     }
 
 }
